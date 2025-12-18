@@ -2,71 +2,97 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SHARAMIN App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <style>
-        body {
-    background-image: url('vector-4.png'); 
-    background-size: cover;        /* تصویر کل صفحه را بپوشاند */
-    background-position: center;   /* تصویر وسط‌چین شود */
-    background-repeat: no-repeat;  /* تصویر تکرار نشود */
-    background-attachment: fixed;  /* تصویر با اسکرول حرکت نکند */
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;             /* ارتفاع کل صفحه را بگیرد */
-}
+        /* ۱. حل مشکل فیکس نشدن تصویر در موبایل */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #000; /* رنگ رزرو در صورت لود نشدن عکس */
+        }
 
-        /* لایه تیره کننده روی پس‌زمینه برای خوانایی بیشتر */
-        body::before {
-            content: "";
+        .bg-container {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4); /* میزان تیرگی */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* لینک مستقیم و پایدار برای اطمینان از لود شدن در موبایل */
+            background-image: url('https://raw.githubusercontent.com/MASIHSATAN/File-Links/main/vector-4.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             z-index: -1;
         }
 
-        h1 {
+        /* لایه تیره کننده روی پس‌زمینه */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: -1;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: white;
-            margin-top: 20px;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            margin-top: 40px;
+            font-size: 32px;
+            letter-spacing: 3px;
+            text-shadow: 0px 4px 10px rgba(0,0,0,0.8);
+            font-weight: 900;
         }
 
         .container {
-            width: 100%;
-            max-width: 400px;
+            width: 85%;
+            max-width: 350px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 20px;
+            padding-bottom: 50px;
         }
 
-        /* ۲. دکمه‌های شیشه‌ای و شفاف */
         .glass-btn {
-            background: rgba(255, 255, 255, 0.1); /* شفافیت سفید */
-            backdrop-filter: blur(10px); /* افکت مات کردن پشت دکمه */
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 18px;
+            border-radius: 16px;
+            padding: 20px;
             color: white;
             text-decoration: none;
             text-align: center;
             font-size: 18px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .glass-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.96);
             background: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
+
+    <div class="bg-container"></div>
+    <div class="overlay"></div>
 
     <h1>SHARAMIN</h1>
 
@@ -82,11 +108,14 @@
         let tg = window.Telegram.WebApp;
         tg.expand();
         tg.ready();
+
+        // حل مشکل باز نشدن لینک‌ها در برخی نسخه‌های موبایل
+        document.querySelectorAll('.glass-btn').forEach(button => {
+            button.onclick = function(e) {
+                e.preventDefault();
+                tg.openLink(this.href);
+            }
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
