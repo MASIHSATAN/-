@@ -3,146 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پنل کاربری</title>
+    <title>SHARAMIN App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <style>
-        /* استفاده از متغیرهای رنگی تلگرام برای هماهنگی با تم کاربر */
         body {
-            background-color: var(--tg-theme-bg-color, #fff);
-            color: var(--tg-theme-text-color, #000);
-            font-family: Tahoma, sans-serif;
+            /* ۱. تنظیم تصویر پس‌زمینه */
+            background-image: url('https://1drv.ms/i/c/dd6291e82cc8ff45/IQBve3R4G1mbTLeIq95n0HEhAXHbisIVHZL3gIl3ffRt9b8?e=yGxhCX'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        /* لایه تیره کننده روی پس‌زمینه برای خوانایی بیشتر */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* میزان تیرگی */
+            z-index: -1;
         }
 
-        .user-card {
-            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
-            padding: 15px;
-            border-radius: 12px;
+        h1 {
+            color: white;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .container {
             width: 100%;
-            max-width: 300px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* گرید دکمه‌ها */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* دو ستون */
-            gap: 15px;
-            width: 100%;
-            max-width: 320px;
-        }
-
-        /* استایل دکمه‌ها */
-        .menu-btn {
-            background-color: var(--tg-theme-button-color, #2481cc);
-            color: var(--tg-theme-button-text-color, #fff);
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: opacity 0.2s;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
+            gap: 15px;
+            margin-top: 30px;
         }
 
-        .menu-btn:active {
-            opacity: 0.8;
+        /* ۲. دکمه‌های شیشه‌ای و شفاف */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.1); /* شفافیت سفید */
+            backdrop-filter: blur(10px); /* افکت مات کردن پشت دکمه */
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 18px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* دکمه بزرگ پایین (تمام عرض) */
-        .full-width {
-            grid-column: span 2;
-            background-color: var(--tg-theme-secondary-bg-color, #e0e0e0);
-            color: var(--tg-theme-text-color, #000);
-            border: 1px solid var(--tg-theme-hint-color, #ccc);
+        .glass-btn:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.2);
         }
-
-        /* آیکون‌ها (نمادین) */
-        .icon { font-size: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h2>خدمات مالی من</h2>
-    </div>
+    <h1>SHARAMIN</h1>
 
-    <div class="user-card">
-        <div id="username">در حال بارگذاری...</div>
-        <small style="color: var(--tg-theme-hint-color);">خوش آمدید</small>
-    </div>
-
-    <div class="menu-grid">
-        <button class="menu-btn" onclick="showAlert('بخش کیف پول')">
-            <span class="icon">💰</span>
-            <span>کیف پول</span>
-        </button>
-        
-        <button class="menu-btn" onclick="showAlert('بخش تراکنش‌ها')">
-            <span class="icon">📊</span>
-            <span>تراکنش‌ها</span>
-        </button>
-        
-        <button class="menu-btn" onclick="showAlert('بخش تبدیل ارز')">
-            <span class="icon">💱</span>
-            <span>تبدیل ارز</span>
-        </button>
-        
-        <button class="menu-btn" onclick="showAlert('بخش پشتیبانی')">
-            <span class="icon">🎧</span>
-            <span>پشتیبانی</span>
-        </button>
-
-        <button class="menu-btn full-width" onclick="closeApp()">
-            <span class="icon">❌</span>
-            <span>خروج از برنامه</span>
-        </button>
+    <div class="container">
+        <a href="https://wallet.tonkeeper.com/" class="glass-btn">Wallet</a>
+        <a href="https://t.me/cryptorank_app_bot/points?startapp=ref_6063078504_" class="glass-btn">AirDrop</a>
+        <a href="https://sharamin.blogspot.com/" class="glass-btn">Blog</a>
+        <a href="https://t.me/+3egWw_3r9fAyOGNk" class="glass-btn">Group</a>
+        <a href="https://t.me/notcoin_bot?start=er_25778939" class="glass-btn">Nothing</a>
     </div>
 
     <script>
-        // اتصال به آبجکت تلگرام
         let tg = window.Telegram.WebApp;
-
-        // تمام صفحه کردن اپلیکیشن
         tg.expand();
-
-        // نمایش نام کاربر
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            document.getElementById("username").innerText = 
-                tg.initDataUnsafe.user.first_name + " " + (tg.initDataUnsafe.user.last_name || "");
-        } else {
-            document.getElementById("username").innerText = "کاربر مهمان";
-        }
-
-        // عملکرد دکمه‌ها
-        function showAlert(sectionName) {
-            // در حالت واقعی اینجا درخواست به سرور ارسال می‌شود
-            tg.showPopup({
-                title: "انتخاب گزینه",
-                message: "شما وارد " + sectionName + " شدید.",
-                buttons: [{type: "ok"}]
-            });
-        }
-
-        function closeApp() {
-            tg.close();
-        }
+        tg.ready();
     </script>
 </body>
 </html>
