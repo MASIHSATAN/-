@@ -1,144 +1,120 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHARAMIN App</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
-    <style>
-        body {
-            /* ۱. تنظیم تصویر پس‌زمینه */
-            background-image: url('vector-4.png'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;  /* تصویر تکرار نشود */
-            background-attachment: fixed;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            justify-content: center
-        }
-        
-        /* تنظیم دقیق پس‌زمینه برای موبایل */
-        .bg-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw; /* عرض کامل صفحه */
-        height: 100vh; /* ارتفاع کامل صفحه */
-        background-image: url('vector-4.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        z-index: -2; /* عقب‌تر از لایه تیره */
-        }
-    
-        
-        .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5); 
-        z-index: -1;
-        }
-        
-        body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: white;
-        /* جلوگیری از پرش صفحه در موبایل */
-        overflow-y: auto;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHARAMIN App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-color: #ffffff;
+        }
 
-        /* لایه تیره کننده روی پس‌زمینه برای خوانایی بیشتر */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4); /* میزان تیرگی */
-            z-index: -1;
-        }
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Tahoma', Arial, sans-serif;
+            color: var(--text-color);
+            background: url('vector-4.png') no-repeat center center fixed;
+            background-size: cover;
+            overflow-x: hidden;
+        }
 
-        h1 {
-            color: white;
-            margin-top: 20px;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
+        /* لایه تیره برای خوانایی متن */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: -1;
+        }
 
-        .container {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
-        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            font-family: sans-serif; /* برای نام برند انگلیسی بهتر است */
+        }
 
-        /* ۲. دکمه‌های شیشه‌ای و شفاف */
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.1); /* شفافیت سفید */
-            backdrop-filter: blur(10px); /* افکت مات کردن پشت دکمه */
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 18px;
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+        .container {
+            width: 90%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-        .glass-btn:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.2);
-        }
-    </style>
+        .glass-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        /* افکت لمس برای موبایل */
+        .glass-btn:active {
+            transform: scale(0.97);
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
 <body>
 
-    <h1>SHARAMIN</h1>
+    <h1>SHARAMIN</h1>
 
-    <div class="container">
-        <a href="https://wallet.tonkeeper.com/" class="glass-btn">Wallet</a>
-        <a href="https://t.me/cryptorank_app_bot/points?startapp=ref_6063078504_" class="glass-btn">AirDrop</a>
-        <a href="https://sharamin.blogspot.com/" class="glass-btn">Blog</a>
-        <a href="https://t.me/+3egWw_3r9fAyOGNk" class="glass-btn">Group</a>
-        <a href="https://t.me/notcoin_bot?start=er_25778939" class="glass-btn">Nothing</a>
-    </div>
+    <div class="container">
+        <a href="https://wallet.tonkeeper.com/" class="glass-btn">Wallet</a>
+        <a href="https://t.me/cryptorank_app_bot/points?startapp=ref_6063078504_" class="glass-btn">AirDrop</a>
+        <a href="https://sharamin.blogspot.com/" class="glass-btn">Blog</a>
+        <a href="https://t.me/+3egWw_3r9fAyOGNk" class="glass-btn">Group</a>
+        <a href="https://t.me/notcoin_bot?start=er_25778939" class="glass-btn">Nothing</a>
+    </div>
 
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-        
-        // این خط بسیار مهم است: رنگ پایین صفحه در موبایل را با تم شما ست می‌کند
-       tg.setBackgroundColor('#000000');
-       tg.setHeaderColor('#000000');
-        
-        tg.ready();
+    <script>
+        const tg = window.Telegram.WebApp;
+        
+        // تنظیمات اولیه تلگرام
+        tg.ready();
+        tg.expand();
+        
+        // ست کردن رنگ تم هماهنگ با اپلیکیشن
+        tg.setHeaderColor('#000000');
+        tg.setBackgroundColor('#000000');
 
-        // این تابع باعث می‌شود لینک‌ها در مرورگر داخلی تلگرام باز شوند
-        document.querySelectorAll('.glass-btn').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const url = this.getAttribute('href');
-            tg.openLink(url);
-        });
-    });
-    </script>
+        // مدیریت کلیک روی لینک‌ها
+        document.querySelectorAll('.glass-btn').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.getAttribute('href');
+                
+                // استفاده از متد استاندارد تلگرام برای باز کردن لینک‌های خارجی
+                if (url) {
+                    tg.openLink(url);
+                }
+            });
+        });
+
+        // اطلاع‌رسانی به تلگرام که اپلیکیشن آماده نمایش است
+        tg.ready();
+    </script>
 </body>
 </html>
