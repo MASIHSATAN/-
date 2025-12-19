@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SHARAMIN App</title>
+    <!-- اضافه کردن فونت‌های مورد نیاز -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Graduate&family=Special+Elite&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     
@@ -14,9 +16,14 @@
             --text-color: #ffffff;
             --accent-color: #00d2ff;
             --ai-accent: #8b5cf6;
-            --gold-light: #fdfc47;
-            --gold-mid: #ffd700;
-            --gold-dark: #b8860b;
+            --gold-gradient: linear-gradient(
+                to bottom,
+                #fcf6ba 0%,
+                #bf953f 22%,
+                #fbf5b7 45%,
+                #aa771c 50%,
+                #fcf6ba 100%
+            );
         }
 
         * {
@@ -31,14 +38,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: Tahoma, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             color: var(--text-color);
             background-image: url('https://github.com/MASIHSATAN/-/blob/main/vector-4.png?raw=true');
             background-position: center center;
             background-repeat: no-repeat;
             background-size: 80%;
             background-attachment: fixed;
-            padding-top: 20px;
+            padding-top: 15px;
             overflow-x: hidden;
         }
 
@@ -46,42 +53,50 @@
             content: "";
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             z-index: -1;
         }
 
-        /* نوار وضعیت بالا */
+        /* نوار وضعیت بالا - فونت Graduate (فوتبال آمریکایی) */
         .top-bar {
             width: 92%;
             max-width: 500px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            border-radius: 12px;
-            margin-bottom: 30px;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
-            color: rgba(255, 255, 255, 0.8);
-            direction: ltr; /* برای نمایش صحیح تاریخ و ساعت انگلیسی */
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+            direction: ltr;
+            font-family: 'Graduate', serif;
         }
 
         .live-clock {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 12px;
+            font-size: 1.15rem;
+        }
+
+        #time-string {
+            color: #ffd700;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
         }
 
         .utc-tag {
-            background: var(--ai-accent);
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: bold;
+            font-size: 0.7rem;
+            color: var(--ai-accent);
+            border-left: 1px solid var(--glass-border);
+            padding-left: 12px;
+        }
+
+        #date-display {
+            font-size: 0.75rem;
+            opacity: 0.8;
         }
 
         header {
@@ -90,26 +105,20 @@
             z-index: 1;
         }
 
+        /* عنوان اصلی - فونت Dancing Script (چسبیده حرفه‌ای) */
         h1 {
             margin: 0;
-            font-size: 3rem;
-            font-weight: 900;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            background: linear-gradient(
-                to bottom,
-                #fcf6ba 0%,
-                #bf953f 22%,
-                #fbf5b7 45%,
-                #aa771c 50%,
-                #fcf6ba 100%
-            );
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-            animation: gold-shimmer 3s infinite linear;
+            filter: drop-shadow(0 5px 8px rgba(0,0,0,0.5));
+            animation: gold-shimmer 5s infinite linear;
             background-size: 200% auto;
+            padding: 0 15px;
         }
 
         @keyframes gold-shimmer {
@@ -121,10 +130,11 @@
             max-width: 360px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             z-index: 1;
         }
 
+        /* دکمه‌ها - فونت Special Elite (ماشین‌تحریر قدیمی آمریکایی) */
         .glass-btn {
             display: flex;
             align-items: center;
@@ -133,36 +143,55 @@
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            padding: 16px 20px;
+            border-radius: 15px;
+            padding: 14px 22px;
             color: white;
             text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s, background 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .ai-special {
-            background: rgba(139, 92, 246, 0.2);
+            background: rgba(139, 92, 246, 0.15);
             border: 1px solid rgba(139, 92, 246, 0.4);
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.25);
         }
 
-        .btn-right-icon { order: 1; display: flex; align-items: center; }
-        .btn-left-text { order: 2; font-size: 0.95rem; opacity: 0.9; font-family: sans-serif; }
+        .btn-right-icon { 
+            order: 1; 
+            display: flex; 
+            align-items: center; 
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .btn-left-text { 
+            order: 2; 
+            font-size: 1.1rem; 
+            font-family: 'Special Elite', cursive; /* فونت قدیمی آمریکایی */
+            letter-spacing: 1px;
+        }
 
-        .glass-btn:active { transform: scale(0.97); background: rgba(255, 255, 255, 0.2); }
+        .glass-btn:active { 
+            transform: scale(0.95) translateY(2px); 
+            background: rgba(255, 255, 255, 0.15); 
+        }
+
+        .glass-btn:hover {
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.12);
+        }
 
         /* AI Chat UI */
         #ai-chat-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 100;
             flex-direction: column;
             padding: 20px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
         }
 
         .chat-header {
@@ -170,6 +199,15 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-family: 'Special Elite', cursive;
+            font-size: 1.2rem;
+            color: var(--ai-accent);
         }
 
         #chat-messages {
@@ -177,20 +215,78 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 20px;
-            padding: 10px;
+            padding: 5px;
         }
 
-        .message { max-width: 85%; padding: 12px 16px; border-radius: 15px; font-size: 0.95rem; line-height: 1.5; }
-        .user-message { align-self: flex-start; background: var(--glass-bg); border: 1px solid var(--glass-border); }
-        .ai-message { align-self: flex-end; background: rgba(139, 92, 246, 0.3); border: 1px solid rgba(139, 92, 246, 0.5); color: #fff; direction: rtl; }
+        .message { 
+            max-width: 85%; 
+            padding: 12px 18px; 
+            border-radius: 18px; 
+            font-size: 0.95rem; 
+            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+        
+        .user-message { 
+            align-self: flex-start; 
+            background: rgba(255,255,255,0.06); 
+            border: 1px solid var(--glass-border); 
+            border-bottom-left-radius: 2px; 
+        }
+        
+        .ai-message { 
+            align-self: flex-end; 
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(139, 92, 246, 0.1)); 
+            border: 1px solid rgba(139, 92, 246, 0.4); 
+            border-bottom-right-radius: 2px; 
+            color: #eee; 
+            direction: rtl; 
+        }
 
-        .chat-input-container { display: flex; gap: 10px; }
-        #user-input { flex-grow: 1; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); border-radius: 12px; padding: 12px; color: white; outline: none; }
-        .send-btn { background: var(--ai-accent); border: none; border-radius: 12px; padding: 0 15px; color: white; cursor: pointer; }
+        .chat-input-container { 
+            display: flex; 
+            gap: 12px; 
+            background: rgba(255,255,255,0.05); 
+            padding: 10px; 
+            border-radius: 25px; 
+            border: 1px solid var(--glass-border); 
+        }
+        
+        #user-input { 
+            flex-grow: 1; 
+            background: transparent; 
+            border: none; 
+            padding: 5px 15px; 
+            color: white; 
+            outline: none; 
+            font-size: 0.95rem; 
+        }
+        
+        .send-btn { 
+            background: var(--ai-accent); 
+            border: none; 
+            border-radius: 50%; 
+            width: 42px; 
+            height: 42px; 
+            color: white; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: 0.3s; 
+        }
 
-        footer { margin-top: auto; padding: 25px; font-size: 0.8rem; opacity: 0.6; z-index: 1; }
+        footer { 
+            margin-top: auto; 
+            padding: 30px; 
+            font-size: 0.8rem; 
+            opacity: 0.4; 
+            z-index: 1; 
+            letter-spacing: 2px; 
+            font-family: 'Special Elite', cursive;
+        }
         
         .loading-dots:after { content: ' .'; animation: dots 1s steps(5, end) infinite; }
         @keyframes dots {
@@ -208,11 +304,11 @@
             <span id="time-string">00:00:00</span>
             <span class="utc-tag">UTC</span>
         </div>
-        <div id="date-display">Friday, Dec 19, 2025</div>
+        <div id="date-display">...</div>
     </div>
 
     <header>
-        <h1>SHARAMIN</h1>
+        <h1>Sharamin</h1>
     </header>
 
     <div class="container">
@@ -220,7 +316,7 @@
             <div class="btn-right-icon">
                 <i data-lucide="sparkles"></i>
             </div>
-            <div class="btn-left-text">AI</div>
+            <div class="btn-left-text">AI Assistant</div>
         </div>
 
         <a href="https://wallet.tonkeeper.com/" class="glass-btn">
@@ -241,27 +337,27 @@
             <div class="btn-right-icon">
                 <i data-lucide="layout"></i>
             </div>
-            <div class="btn-left-text">Blog</div>
+            <div class="btn-left-text">Journal</div>
         </a>
 
         <a href="https://t.me/+3egWw_3r9fAyOGNk" class="glass-btn">
             <div class="btn-right-icon">
                 <i data-lucide="users"></i>
             </div>
-            <div class="btn-left-text">Group</div>
+            <div class="btn-left-text">Society</div>
         </a>
 
         <a href="https://t.me/notcoin_bot?start=er_25778939" class="glass-btn">
             <div class="btn-right-icon">
                 <i data-lucide="star"></i>
             </div>
-            <div class="btn-left-text">Nothing</div>
+            <div class="btn-left-text">Legacy</div>
         </a>
     </div>
 
     <div id="ai-chat-modal">
         <div class="chat-header">
-            <h3>✨ مشاور هوشمند شرامین</h3>
+            <h3>✨ THE SHARAMIN INTELLIGENCE</h3>
             <button id="close-chat" style="background:none; border:none; color:white; cursor:pointer;"><i data-lucide="x"></i></button>
         </div>
         <div id="chat-messages">
@@ -274,7 +370,7 @@
     </div>
 
     <footer>
-        SHARAMIN Project &copy; 2021
+        EST. 2021 | SHARAMIN PROJECT
     </footer>
 
     <script>
@@ -283,15 +379,11 @@
         tg.expand();
         lucide.createIcons();
 
-        // سیستم ساعت و تاریخ زنده
         function updateLiveInfo() {
             const now = new Date();
-            
-            // تنظیم تاریخ (سمت راست)
             const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
             document.getElementById('date-display').textContent = now.toLocaleDateString('en-US', options);
 
-            // تنظیم ساعت UTC (سمت چپ)
             const hours = String(now.getUTCHours()).padStart(2, '0');
             const minutes = String(now.getUTCMinutes()).padStart(2, '0');
             const seconds = String(now.getUTCSeconds()).padStart(2, '0');
@@ -300,7 +392,6 @@
         setInterval(updateLiveInfo, 1000);
         updateLiveInfo();
 
-        // Gemini API configuration
         const apiKey = "";
         const aiModal = document.getElementById('ai-chat-modal');
         const aiTrigger = document.getElementById('ai-trigger');
