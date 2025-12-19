@@ -12,14 +12,53 @@
             background-image: url('vector-4.png'); 
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;  /* تصویر تکرار نشود */
             background-attachment: fixed;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 80vh;
             font-family: Arial, sans-serif;
+            justify-content: center
+        }
+        
+        /* تنظیم دقیق پس‌زمینه برای موبایل */
+        .bg-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw; /* عرض کامل صفحه */
+        height: 100vh; /* ارتفاع کامل صفحه */
+        background-image: url('vector-4.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -2; /* عقب‌تر از لایه تیره */
+        }
+    
+        
+        .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); 
+        z-index: -1;
+        }
+        
+        body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        /* جلوگیری از پرش صفحه در موبایل */
+        overflow-y: auto;
         }
 
         /* لایه تیره کننده روی پس‌زمینه برای خوانایی بیشتر */
@@ -85,7 +124,21 @@
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
+        
+        // این خط بسیار مهم است: رنگ پایین صفحه در موبایل را با تم شما ست می‌کند
+       tg.setBackgroundColor('#000000');
+       tg.setHeaderColor('#000000');
+        
         tg.ready();
+
+        // این تابع باعث می‌شود لینک‌ها در مرورگر داخلی تلگرام باز شوند
+        document.querySelectorAll('.glass-btn').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.getAttribute('href');
+            tg.openLink(url);
+        });
+    });
     </script>
 </body>
 </html>
